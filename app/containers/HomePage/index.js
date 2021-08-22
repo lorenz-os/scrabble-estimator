@@ -16,3 +16,4 @@ export default function HomePage() {
     </h1>
   );
 }
+// Projekt startet korrekt, es gibt allerdings Probleme mit dem M1-Mac
