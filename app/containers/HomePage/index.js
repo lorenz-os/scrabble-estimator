@@ -6,31 +6,61 @@
  */
 
 import React from 'react';
+import '@fontsource/roboto';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
-// Begrüßungstext
-function Welcome() {
-  return <h1>Hallo Lorenzo und herzlich willkommen zum Scrabble Estimator!</h1>;
-}
-
-// Scrabble-Estimator
-function Texteingabe() {
-  return (
-    <form id="texteingabe">
-      Scrabble Wort: <input type="text" name="scrabbleWord" />
-      <br />
-      <br />
-      <input type="button" onClick="scrabbleScore()" value="Score berechnen" />
-    </form>
-  );
-}
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(1),
+  },
+}));
 
 export default function HomePage() {
+  const classes = useStyles();
+
   return (
-    <div>
-      <Welcome />
-      <Texteingabe />
+    <div align="center" className={classes.root}>
+      {/*----------------------------------------------------------------------------*/}
+      {/* Überschrift */}
+      <br />
+      <Typography variant="h2">Scrabble Estimator</Typography>
+      <Typography variant="subtitle1">
+        Erfahren deinen Scrabble-Score!
+      </Typography>
+      <br />
+      {/*----------------------------------------------------------------------------*/}
+      {/* Texteingabe fuer die Berechnung des Scrabble-Score */}
+      <form className={classes.root} noValidate autoComplete="off">
+        <TextField
+          id="standard-secondary"
+          label="Scrabble Wort"
+          color="primary"
+        />
+        <br />
+        <Button
+          type="button"
+          onClick={() => alert('Button clicked')}
+          value="Score berechnen"
+          variant="contained"
+          color="primary"
+        >
+          Score berechnen
+        </Button>
+      </form>
+      {/* Ausgabe des Scores */}
+      {/*----------------------------------------------------------------------------*/}
+      <br />
     </div>
   );
 }
