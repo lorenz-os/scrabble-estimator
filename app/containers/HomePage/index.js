@@ -6,14 +6,31 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+// import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
+
+// Begrüßungstext
+function Welcome() {
+  return <h1>Hallo Lorenzo und herzlich willkommen zum Scrabble Estimator!</h1>;
+}
+
+// Scrabble-Estimator
+function Texteingabe() {
+  return (
+    <form id="texteingabe">
+      Scrabble Wort: <input type="text" name="scrabbleWord" />
+      <br />
+      <br />
+      <input type="button" onClick="scrabbleScore()" value="Score berechnen" />
+    </form>
+  );
+}
 
 export default function HomePage() {
   return (
-    <h1>
-      <FormattedMessage {...messages.header} />
-    </h1>
+    <div>
+      <Welcome />
+      <Texteingabe />
+    </div>
   );
 }
-// Projekt startet korrekt, es gibt allerdings Probleme mit dem M1-Mac
