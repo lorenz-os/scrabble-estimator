@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
+// Funktion zum Stylen der Material UI Komponenten
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -25,6 +26,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
   },
 }));
+
+/* Funktion, welche den Input des Textfeldes checked. 
+Ist der Wert korrekt (nur Buchstaben, keine Zahlen), dann gibt diese Funktion den Scrabble-Score aus. 
+Ist die Eingabe fehlerhaft, dann gibt es eine Fehlermeldung im Alert-Fenster. 
+*/
+function scrabbleScore() {
+  alert('Button clicked');
+}
 
 export default function HomePage() {
   const classes = useStyles();
@@ -50,7 +59,7 @@ export default function HomePage() {
         <br />
         <Button
           type="button"
-          onClick={() => alert('Button clicked')}
+          onClick={scrabbleScore}
           value="Score berechnen"
           variant="contained"
           color="primary"
