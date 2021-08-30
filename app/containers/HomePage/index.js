@@ -5,15 +5,12 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import '@fontsource/roboto';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 // Funktion zum Stylen der Material UI Komponenten
 const useStyles = makeStyles(theme => ({
@@ -31,12 +28,27 @@ const useStyles = makeStyles(theme => ({
 Ist der Wert korrekt (nur Buchstaben, keine Zahlen), dann gibt diese Funktion den Scrabble-Score aus. 
 Ist die Eingabe fehlerhaft, dann gibt es eine Fehlermeldung im Alert-Fenster. 
 */
-function scrabbleScore() {
-  alert('Button clicked');
-}
 
 export default function HomePage() {
+  // Style wird anschließend angewendet
   const classes = useStyles();
+  // two variables and inital value of an empty string
+  const [myValue, setValue] = useState('');
+  const [errors, setErrors] = useState('');
+
+  // Funktion zum Auslesen der Eingabe im Textfeld
+  // checking input with regex
+  const handleChange = e => {
+    const reg = new RegExp(/^[A-Za-z]+$/g).test(e.target.value);
+    if (!reg) {
+      // alert("Do not enter any type of number!")
+      setErrors({ myValue: 'Bitte nur Buchstaben eingeben' });
+    }
+    console.log(`Typed -> ${e.target.value}`);
+    setValue(e.target.value);
+  };
+
+  const scrabbleScore = () => alert('Hier kommt der Score');
 
   return (
     <div align="center" className={classes.root}>
@@ -55,6 +67,11 @@ export default function HomePage() {
           id="standard-secondary"
           label="Scrabble Wort"
           color="primary"
+          value={myValue}
+          required
+          onChange={handleChange}
+          error={Boolean(errors.myValue)}
+          helperText={errors.myValue}
         />
         <br />
         <Button
