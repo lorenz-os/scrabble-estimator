@@ -7,10 +7,10 @@
 
 import React, { useState } from 'react';
 import '@fontsource/roboto';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+import { TextField, makeStyles, Button, Typography } from '@material-ui/core';
+// import Typography from '@material-ui/core/Typography';
 
 // Funktion zum Stylen der Material UI Komponenten
 const useStyles = makeStyles(theme => ({
@@ -48,7 +48,52 @@ export default function HomePage() {
     setValue(e.target.value);
   };
 
-  const scrabbleScore = () => alert('Hier kommt der Score');
+  /*
+  const scrabbleScore = word => {
+    // scrabble letter values
+    const letterValues = {
+      a: 1,
+      b: 3,
+      c: 3,
+      d: 2,
+      e: 1,
+      f: 2,
+      g: 3,
+      h: 2,
+      i: 1,
+      j: 4,
+      k: 5,
+      l: 2,
+      m: 2,
+      n: 3,
+      o: 1,
+      p: 4,
+      q: 6,
+      r: 4,
+      s: 2,
+      t: 4,
+      u: 1,
+      v: 5,
+      w: 4,
+      x: 8,
+      y: 6,
+      z: 6,
+    };
+
+    // calculate the score of all letters
+    let sum = 0;
+    let i;
+    word = word.toLowerCase();
+
+    for (i = 0; i < word.length; i += 1) {
+      sum += letterValues[word[i]] || 0; // for unknown characters
+    }
+
+    // return the scrabbleScore of the word
+    console.log('Die Punktzahl deines eingegeben Wortes beträgt: ', sum);
+    return sum;
+  };
+  */
 
   return (
     <div align="center" className={classes.root}>
@@ -56,9 +101,7 @@ export default function HomePage() {
       {/* Überschrift */}
       <br />
       <Typography variant="h2">Scrabble Estimator</Typography>
-      <Typography variant="subtitle1">
-        Erfahren deinen Scrabble-Score!
-      </Typography>
+      <Typography variant="subtitle1">Erfahren deine Punktzahl!</Typography>
       <br />
       {/*----------------------------------------------------------------------------*/}
       {/* Texteingabe fuer die Berechnung des Scrabble-Score */}
@@ -76,7 +119,7 @@ export default function HomePage() {
         <br />
         <Button
           type="button"
-          onClick={scrabbleScore}
+          // onClick={scrabbleScore}
           value="Score berechnen"
           variant="contained"
           color="primary"
@@ -87,6 +130,9 @@ export default function HomePage() {
       {/* Ausgabe des Scores */}
       {/*----------------------------------------------------------------------------*/}
       <br />
+      <Typography variant="h5">
+        Der Scrabble-Score deines eingebene Wortes:
+      </Typography>
     </div>
   );
 }
