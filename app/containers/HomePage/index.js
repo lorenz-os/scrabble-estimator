@@ -5,12 +5,9 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import '@fontsource/roboto';
-// import Button from '@material-ui/core/Button';
-// import TextField from '@material-ui/core/TextField';
 import { TextField, makeStyles, Button, Typography } from '@material-ui/core';
-// import Typography from '@material-ui/core/Typography';
 
 // Funktion zum Stylen der Material UI Komponenten
 const useStyles = makeStyles(theme => ({
@@ -36,6 +33,8 @@ export default function HomePage() {
   const [myValue, setValue] = useState('');
   const [errors, setErrors] = useState('');
 
+  const valueRef = useRef(''); // creating a refernce for TextField Component
+
   // Funktion zum Auslesen der Eingabe im Textfeld
   // checking input with regex
   const handleChange = e => {
@@ -43,13 +42,15 @@ export default function HomePage() {
     if (!reg) {
       // alert("Do not enter any type of number!")
       setErrors({ myValue: 'Bitte nur Buchstaben eingeben' });
+      setValue('');
     }
     console.log(`Typed -> ${e.target.value}`);
     setValue(e.target.value);
   };
 
-  /*
-  const scrabbleScore = word => {
+  const scrabbleScore = () => {
+    let word = valueRef.current.value;
+
     // scrabble letter values
     const letterValues = {
       a: 1,
@@ -93,7 +94,6 @@ export default function HomePage() {
     console.log('Die Punktzahl deines eingegeben Wortes beträgt: ', sum);
     return sum;
   };
-  */
 
   return (
     <div align="center" className={classes.root}>
@@ -111,6 +111,7 @@ export default function HomePage() {
           label="Scrabble Wort"
           color="primary"
           value={myValue}
+          inputRef={valueRef} // connecting inputRef property of TextField to the valueRef
           required
           onChange={handleChange}
           error={Boolean(errors.myValue)}
@@ -119,7 +120,7 @@ export default function HomePage() {
         <br />
         <Button
           type="button"
-          // onClick={scrabbleScore}
+          onClick={scrabbleScore}
           value="Score berechnen"
           variant="contained"
           color="primary"
@@ -131,7 +132,7 @@ export default function HomePage() {
       {/*----------------------------------------------------------------------------*/}
       <br />
       <Typography variant="h5">
-        Der Scrabble-Score deines eingebene Wortes:
+        Der Scrabble-Score von {myValue} beträgt:
       </Typography>
     </div>
   );
