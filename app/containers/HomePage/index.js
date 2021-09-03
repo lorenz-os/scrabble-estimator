@@ -5,21 +5,19 @@
  *
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Button } from '../../components/Button';
 import { Formular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
 import { H5 } from '../../components/H5';
 import { H6 } from '../../components/H6';
+import { Textfield } from '../../components/Textfield';
 
 export default function HomePage() {
   // two variables and inital value of an empty string
   const [myValue, setValue] = useState('');
-  const [errors, setErrors] = useState('');
   const [score, setScore] = useState(0);
-
-  const valueRef = useRef(''); // creating a refernce for TextField Component
 
   // Funktion zum Auslesen der Eingabe im Textfeld
   // checking input with regex
@@ -28,8 +26,7 @@ export default function HomePage() {
     const reg = new RegExp(/^[A-Za-z]+$/g).test(e.target.value);
     setValue(e.target.value);
     if (!reg) {
-      // alert("Do not enter any type of number!")
-      setErrors({ myValue: 'Bitte nur Buchstaben eingeben' });
+      alert('Do not enter any type of number!');
       setValue('');
       return;
     }
@@ -38,7 +35,7 @@ export default function HomePage() {
   };
 
   const scrabbleScore = () => {
-    let word = valueRef.current.value;
+    let word = myValue;
 
     // scrabble letter values
     const letterValues = {
@@ -88,31 +85,24 @@ export default function HomePage() {
     <Container>
       <Row>
         <Col />
-        <Col md="auto">
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
           <H2>Scrabble Estimator</H2>
         </Col>
         <Col />
       </Row>
       <Row>
         <Col />
-        <Col md="auto">
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
           <H6>Erfahren deine Punktzahl!</H6>
         </Col>
         <Col />
       </Row>
       <Row>
         <Col />
-        <Col md="auto">
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
           <Formular>
-            <input
-              type="text"
-              label="Scrabble Wort"
-              value={myValue}
-              // inputRef={valueRef} // connecting inputRef property of TextField to the valueRef
-              onChange={handleChange}
-              error={Boolean(errors.myValue)}
-              // helperText={errors.myValue}
-            />
+            <Textfield type="text" value={myValue} onChange={handleChange} />
+            <br />
             <br />
             <Button
               primary
@@ -128,7 +118,8 @@ export default function HomePage() {
       </Row>
       <Row>
         <Col />
-        <Col md="auto">
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
+          <br />
           <H5>
             Der Scrabble-Score von {myValue} beträgt: {score}
           </H5>
