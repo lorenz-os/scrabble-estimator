@@ -6,46 +6,35 @@
  */
 
 import React, { useState, useRef } from 'react';
-import '@fontsource/roboto';
-import { TextField, makeStyles, Button, Typography } from '@material-ui/core';
-
-// Funktion zum Stylen der Material UI Komponenten
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(1),
-  },
-}));
-
-/* Funktion, welche den Input des Textfeldes checked. 
-Ist der Wert korrekt (nur Buchstaben, keine Zahlen), dann gibt diese Funktion den Scrabble-Score aus. 
-Ist die Eingabe fehlerhaft, dann gibt es eine Fehlermeldung im Alert-Fenster. 
-*/
+import { Container, Row, Col } from 'react-bootstrap';
+import { Button } from '../../components/Button';
+import { Formular } from '../../components/Formular';
+import { H2 } from '../../components/H2';
+import { H5 } from '../../components/H5';
+import { H6 } from '../../components/H6';
 
 export default function HomePage() {
-  // Style wird anschließend angewendet
-  const classes = useStyles();
   // two variables and inital value of an empty string
   const [myValue, setValue] = useState('');
   const [errors, setErrors] = useState('');
+  const [score, setScore] = useState(0);
 
   const valueRef = useRef(''); // creating a refernce for TextField Component
 
   // Funktion zum Auslesen der Eingabe im Textfeld
   // checking input with regex
+
   const handleChange = e => {
     const reg = new RegExp(/^[A-Za-z]+$/g).test(e.target.value);
+    setValue(e.target.value);
     if (!reg) {
       // alert("Do not enter any type of number!")
       setErrors({ myValue: 'Bitte nur Buchstaben eingeben' });
       setValue('');
+      return;
     }
     console.log(`Typed -> ${e.target.value}`);
-    setValue(e.target.value);
+    setScore(scrabbleScore());
   };
 
   const scrabbleScore = () => {
@@ -96,44 +85,42 @@ export default function HomePage() {
   };
 
   return (
-    <div align="center" className={classes.root}>
-      {/*----------------------------------------------------------------------------*/}
-      {/* Überschrift */}
-      <br />
-      <Typography variant="h2">Scrabble Estimator</Typography>
-      <Typography variant="subtitle1">Erfahren deine Punktzahl!</Typography>
-      <br />
-      {/*----------------------------------------------------------------------------*/}
-      {/* Texteingabe fuer die Berechnung des Scrabble-Score */}
-      <form className={classes.root} noValidate autoComplete="off">
-        <TextField
-          id="standard-secondary"
+    <Container>
+      <Row>
+        <Col />
+        <Col>
+          <H2>Scrabble Estimator</H2>
+        </Col>
+        <Col />
+      </Row>
+      <Row>
+        <Col>
+          <H6>Erfahren deine Punktzahl!</H6>
+        </Col>
+      </Row>
+      <Formular>
+        <input
+          type="text"
           label="Scrabble Wort"
-          color="primary"
           value={myValue}
-          inputRef={valueRef} // connecting inputRef property of TextField to the valueRef
-          required
+          // inputRef={valueRef} // connecting inputRef property of TextField to the valueRef
           onChange={handleChange}
           error={Boolean(errors.myValue)}
-          helperText={errors.myValue}
+          // helperText={errors.myValue}
         />
         <br />
         <Button
-          type="button"
-          onClick={scrabbleScore}
+          primary
+          type="submit"
           value="Score berechnen"
-          variant="contained"
-          color="primary"
+          onClick={scrabbleScore}
         >
           Score berechnen
         </Button>
-      </form>
-      {/* Ausgabe des Scores */}
-      {/*----------------------------------------------------------------------------*/}
-      <br />
-      <Typography variant="h5">
-        Der Scrabble-Score von {myValue} beträgt:
-      </Typography>
-    </div>
+      </Formular>
+      <H5>
+        Der Scrabble-Score von {myValue} beträgt: {score}
+      </H5>
+    </Container>
   );
 }
