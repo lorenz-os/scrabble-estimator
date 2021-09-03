@@ -88,39 +88,53 @@ export default function HomePage() {
     <Container>
       <Row>
         <Col />
-        <Col>
+        <Col md="auto">
           <H2>Scrabble Estimator</H2>
         </Col>
         <Col />
       </Row>
       <Row>
-        <Col>
+        <Col />
+        <Col md="auto">
           <H6>Erfahren deine Punktzahl!</H6>
         </Col>
+        <Col />
       </Row>
-      <Formular>
-        <input
-          type="text"
-          label="Scrabble Wort"
-          value={myValue}
-          // inputRef={valueRef} // connecting inputRef property of TextField to the valueRef
-          onChange={handleChange}
-          error={Boolean(errors.myValue)}
-          // helperText={errors.myValue}
-        />
-        <br />
-        <Button
-          primary
-          type="submit"
-          value="Score berechnen"
-          onClick={scrabbleScore}
-        >
-          Score berechnen
-        </Button>
-      </Formular>
-      <H5>
-        Der Scrabble-Score von {myValue} beträgt: {score}
-      </H5>
+      <Row>
+        <Col />
+        <Col md="auto">
+          <Formular>
+            <input
+              type="text"
+              label="Scrabble Wort"
+              value={myValue}
+              // inputRef={valueRef} // connecting inputRef property of TextField to the valueRef
+              onChange={handleChange}
+              error={Boolean(errors.myValue)}
+              // helperText={errors.myValue}
+            />
+            <br />
+            <Button
+              primary
+              type="submit"
+              value="Score berechnen"
+              onClick={scrabbleScore}
+            >
+              Score berechnen
+            </Button>
+          </Formular>
+        </Col>
+        <Col />
+      </Row>
+      <Row>
+        <Col />
+        <Col md="auto">
+          <H5>
+            Der Scrabble-Score von {myValue} beträgt: {score}
+          </H5>
+        </Col>
+        <Col />
+      </Row>
     </Container>
   );
 }
