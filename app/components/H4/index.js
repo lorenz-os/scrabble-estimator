@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const H5 = styled.h5`
+export const H4 = styled.h4`
   font-family: sans-serif;
+  font-size: 2em;
   padding-top: 30px;
-  padding-bottom: 25px;
-  font-size: 1, 5em;
 `;

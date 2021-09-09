@@ -1,10 +1,33 @@
-import styled from 'styled-components';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from '../Button';
+import { Formular } from './styledFormular';
+import { Textfield } from '../Textfield';
 
-export const Formular = styled.form`
-  width: 430px;
-  height: 300px;
-  padding: 60px 35px 35px 35px;
-  border-radius: 40px;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
-`;
+export const StyledFormular = ({ onChange, onClick, value }) => {
+  console.info(value);
+
+  return (
+    <Formular>
+      <Textfield
+        type="text"
+        required="required"
+        name="scrabbleWort"
+        placeholder="Scrabble Wort"
+        value={value}
+        onChange={event => onChange(event.target.value)}
+      />
+      <br />
+      <br />
+      <Button type="button" value="Score berechnen" onClick={onClick}>
+        Score speichern
+      </Button>
+    </Formular>
+  );
+};
+
+StyledFormular.propTypes = {
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  value: PropTypes.string,
+};

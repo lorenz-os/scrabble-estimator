@@ -1,131 +1,111 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- */
-
 import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Button } from '../../components/Button';
-import { Formular } from '../../components/Formular';
+import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
+import { H4 } from '../../components/H4';
 import { H5 } from '../../components/H5';
 import { H6 } from '../../components/H6';
-import { Textfield } from '../../components/Textfield';
+import { ScrabbleList } from '../../components/Liste';
 
 export default function HomePage() {
-  // two variables and inital value of an empty string
-  const [myValue, setValue] = useState('');
+  const [myTextInput, setMyTextInput] = useState('');
   const [score, setScore] = useState(0);
+  const data = [{}];
+  const [scoreSum, setScoreSum] = useState(0);
+  const [testData, setTestData] = useState(data);
+  const [counter, setCounter] = useState(1);
+  const letterValues = {
+    1: ['a', 'e', 'i', 'o', 'u'],
+    2: ['d', 'f', 'h', 'l', 'm', 's'],
+    3: ['b', 'c', 'g', 'n'],
+    4: ['j', 'p', 't', 'w'],
+    5: ['k', 'v'],
+    6: ['q', 'y', 'z'],
+    8: ['x'],
+  };
 
-  // Funktion zum Auslesen der Eingabe im Textfeld
-  // checking input with regex
-
-  const handleChange = e => {
-    const reg = new RegExp(/^[A-Za-z]+$/g).test(e.target.value);
-    setValue(e.target.value);
+  const handleTextInput = liveInput => {
+    console.info(liveInput);
+    const reg = new RegExp(/^[A-Za-z]+$/g).test(liveInput);
+    setMyTextInput(liveInput);
     if (!reg) {
-      alert('Do not enter any type of number!');
-      setValue('');
+      alert('Bitte gib keine Zahlen oder Sonderzeichen ein!');
+      setMyTextInput('');
       return;
     }
-    console.log(`Typed -> ${e.target.value}`);
+    console.log(`Typed -> ${liveInput}`);
     setScore(scrabbleScore());
   };
 
-  const scrabbleScore = () => {
-    let word = myValue;
+  // TODO: rewriting the code for better understanding
+  const lettersToScore = letter => {
+    const keys = Object.keys(letterValues);
+    const values = Object.values(letterValues);
 
-    // scrabble letter values
-    const letterValues = {
-      a: 1,
-      b: 3,
-      c: 3,
-      d: 2,
-      e: 1,
-      f: 2,
-      g: 3,
-      h: 2,
-      i: 1,
-      j: 4,
-      k: 5,
-      l: 2,
-      m: 2,
-      n: 3,
-      o: 1,
-      p: 4,
-      q: 6,
-      r: 4,
-      s: 2,
-      t: 4,
-      u: 1,
-      v: 5,
-      w: 4,
-      x: 8,
-      y: 6,
-      z: 6,
-    };
-
-    // calculate the score of all letters
-    let sum = 0;
-    let i;
-    word = word.toLowerCase();
-
-    for (i = 0; i < word.length; i += 1) {
-      sum += letterValues[word[i]] || 0; // for unknown characters
+    for (let i = 0; i < keys.length; i += 1) {
+      if (
+        keys.indexOf(
+          values[i].indexOf(letter) !== -1 ? keys[i].toString() : '-1',
+        ) !== -1
+      ) {
+        return parseInt(keys[i], 10);
+      }
     }
+    return -1;
+  };
 
-    // return the scrabbleScore of the word
+  const scrabbleScore = () => {
+    const word = myTextInput;
+    let sum = 0;
+    word
+      .toLowerCase()
+      .split('')
+      .forEach(buchstabe => {
+        sum += lettersToScore(buchstabe);
+      });
     console.log('Die Punktzahl deines eingegeben Wortes beträgt: ', sum);
     return sum;
   };
 
+  const displayAllScores = () => {
+    setCounter(counter + 1);
+    setTestData(prevData => [
+      ...prevData,
+      {
+        id: counter,
+        wort: myTextInput,
+        punktezahl: score,
+      },
+    ]);
+    console.info(testData);
+    setScoreSum(score + scoreSum);
+  };
+
   return (
-    <Container>
-      <Row>
-        <Col />
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
-          <H2>Scrabble Estimator</H2>
-        </Col>
-        <Col />
-      </Row>
-      <Row>
-        <Col />
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
-          <H6>Erfahren deine Punktzahl!</H6>
-        </Col>
-        <Col />
-      </Row>
-      <Row>
-        <Col />
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
-          <Formular>
-            <Textfield type="text" value={myValue} onChange={handleChange} />
-            <br />
-            <br />
-            <Button
-              primary
-              type="submit"
-              value="Score berechnen"
-              onClick={scrabbleScore}
-            >
-              Score berechnen
-            </Button>
-          </Formular>
-        </Col>
-        <Col />
-      </Row>
-      <Row>
-        <Col />
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
-          <br />
-          <H5>
-            Der Scrabble-Score von {myValue} beträgt: {score}
-          </H5>
-        </Col>
-        <Col />
-      </Row>
-    </Container>
+    <div className="d-flex flex-column">
+      <div className="d-flex justify-content-center">
+        <H2>Scrabble Estimator</H2>
+      </div>
+      <div className="d-flex justify-content-center">
+        <H6>Erfahre deine Punktzahl!</H6>
+      </div>
+      <div className="d-flex justify-content-center">
+        <StyledFormular
+          value={myTextInput}
+          onChange={handleTextInput}
+          onClick={displayAllScores}
+        />
+      </div>
+      <div className="d-flex justify-content-center">
+        <H5>
+          Der Scrabble-Score von {myTextInput} beträgt: {score}
+        </H5>
+      </div>
+      <div className="d-flex justify-content-center">
+        <ScrabbleList testData={testData} />
+      </div>
+      <div className="d-flex justify-content-center">
+        <H4>Dein GesamtScore beträgt: {scoreSum} </H4>
+      </div>
+    </div>
   );
 }
