@@ -40,13 +40,14 @@ export default function HomePage() {
   const lettersToScore = letter => {
     const keys = Object.keys(letterValues);
     const values = Object.values(letterValues);
-
     for (let i = 0; i < keys.length; i += 1) {
-      if (
-        keys.indexOf(
-          values[i].indexOf(letter) !== -1 ? keys[i].toString() : '-1',
-        ) !== -1
-      ) {
+      let keyValue = 0;
+      if (values[i].indexOf(letter) !== -1) {
+        keyValue = keys[i].toString();
+      } else {
+        keyValue = -1;
+      }
+      if (keys.indexOf(keyValue) !== -1) {
         return parseInt(keys[i], 10);
       }
     }
