@@ -43,7 +43,7 @@ export default function HomePage() {
     for (let i = 0; i < keys.length; i += 1) {
       let keyValue = 0;
       if (values[i].indexOf(letter) !== -1) {
-        keyValue = keys[i].toString();
+        keyValue = keys[i];
       } else {
         keyValue = -1;
       }
