@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
 import { H4 } from '../../components/H4';
@@ -9,6 +9,9 @@ import { ScrabbleList } from '../../components/Liste';
 export default function HomePage() {
   const [scrabbleWord, setScrabbleWord] = useState('');
   const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
+  useEffect(() => {
+    setScrabbleWordScore(calculateScrabbleScore());
+  }, [scrabbleWord]);
   const allScrabbleScoresAndWords = [{}];
   const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
   const [scrabbleDataList, setScrabbleDataList] = useState(
@@ -35,7 +38,8 @@ export default function HomePage() {
       return;
     }
     console.log('Typed -> ', liveInput);
-    setScrabbleWordScore(calculateScrabbleScore());
+    // Time out setzen!!!
+    // setScrabbleWordScore(calculateScrabbleScore());
   };
 
   const letterToScore = letter => {
@@ -57,6 +61,7 @@ export default function HomePage() {
 
   const calculateScrabbleScore = () => {
     let sum = 0;
+    console.log('Wort bei aufruf von calculateScrabbleScore', scrabbleWord);
     scrabbleWord
       .toLowerCase()
       .split('')
