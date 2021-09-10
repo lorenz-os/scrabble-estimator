@@ -7,12 +7,14 @@ import { H6 } from '../../components/H6';
 import { ScrabbleList } from '../../components/Liste';
 
 export default function HomePage() {
-  const [myTextInput, setMyTextInput] = useState('');
-  const [score, setScore] = useState(0);
-  const data = [{}];
-  const [scoreSum, setScoreSum] = useState(0);
-  const [testData, setTestData] = useState(data);
-  const [counter, setCounter] = useState(1);
+  const [scrabbleWord, setScrabbleWord] = useState('');
+  const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
+  const allScrabbleScoresAndWords = [{}];
+  const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
+  const [scrabbleDataList, setScrabbleDataList] = useState(
+    allScrabbleScoresAndWords,
+  );
+  const [idCounter, setIdCounter] = useState(1);
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
     2: ['d', 'f', 'h', 'l', 'm', 's'],
@@ -23,21 +25,20 @@ export default function HomePage() {
     8: ['x'],
   };
 
-  const handleTextInput = liveInput => {
-    console.info(liveInput);
+  const handleTextfieldInput = liveInput => {
+    console.log('Current liveInput: ', liveInput);
     const reg = new RegExp(/^[A-Za-z]+$/g).test(liveInput);
-    setMyTextInput(liveInput);
+    setScrabbleWord(liveInput);
     if (!reg) {
       alert('Bitte gib keine Zahlen oder Sonderzeichen ein!');
-      setMyTextInput('');
+      setScrabbleWord('');
       return;
     }
-    console.log(`Typed -> ${liveInput}`);
-    setScore(scrabbleScore());
+    console.log('Typed -> ', liveInput);
+    setScrabbleWordScore(calculateScrabbleScore());
   };
 
-  // TODO: rewriting the code for better understanding
-  const lettersToScore = letter => {
+  const letterToScore = letter => {
     const keys = Object.keys(letterValues);
     const values = Object.values(letterValues);
     for (let i = 0; i < keys.length; i += 1) {
@@ -54,31 +55,30 @@ export default function HomePage() {
     return -1;
   };
 
-  const scrabbleScore = () => {
-    const word = myTextInput;
+  const calculateScrabbleScore = () => {
     let sum = 0;
-    word
+    scrabbleWord
       .toLowerCase()
       .split('')
-      .forEach(buchstabe => {
-        sum += lettersToScore(buchstabe);
+      .forEach(letter => {
+        console.log('Aktueller Buchstabe aus der forEach:', letter);
+        sum += letterToScore(letter);
       });
     console.log('Die Punktzahl deines eingegeben Wortes beträgt: ', sum);
     return sum;
   };
 
-  const displayAllScores = () => {
-    setCounter(counter + 1);
-    setTestData(prevData => [
+  const addScrabbleDataToList = () => {
+    setIdCounter(idCounter + 1);
+    setScrabbleDataList(prevData => [
       ...prevData,
       {
-        id: counter,
-        wort: myTextInput,
-        punktezahl: score,
+        id: idCounter,
+        wort: scrabbleWord,
+        punktezahl: scrabbleWordScore,
       },
     ]);
-    console.info(testData);
-    setScoreSum(score + scoreSum);
+    setTotalScrabbleScore(scrabbleWordScore + totalScrabbleScore);
   };
 
   return (
@@ -91,21 +91,19 @@ export default function HomePage() {
       </div>
       <div className="d-flex justify-content-center">
         <StyledFormular
-          value={myTextInput}
-          onChange={handleTextInput}
-          onClick={displayAllScores}
+          value={scrabbleWord}
+          onChange={handleTextfieldInput}
+          onClick={addScrabbleDataToList}
         />
       </div>
       <div className="d-flex justify-content-center">
         <H5>
-          Der Scrabble-Score von {myTextInput} beträgt: {score}
+          Der Scrabble-Score von {scrabbleWord} beträgt: {scrabbleWordScore}
         </H5>
       </div>
+      <ScrabbleList scrabbleDataList={scrabbleDataList} />
       <div className="d-flex justify-content-center">
-        <ScrabbleList testData={testData} />
-      </div>
-      <div className="d-flex justify-content-center">
-        <H4>Dein GesamtScore beträgt: {scoreSum} </H4>
+        <H4>Dein Gesamt-Score beträgt: {totalScrabbleScore} </H4>
       </div>
     </div>
   );
