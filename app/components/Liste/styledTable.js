@@ -5,13 +5,15 @@ export const Container = styled.div`
   justify-content: center;
   height: 35vh;
   background: #fafafa;
+  padding-bottom: 35px;
 `;
 
 export const Scrollable = styled.div`
   overflow-y: auto;
   width: 100%;
   flex-wrap: wrap;
-  padding-left: 50px;
+  margin-left: 90px;
+  margin-right: 90px;
   border-radius: 15px;
   background: #fafafa;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
@@ -21,7 +23,6 @@ export const StyledTable = styled.table`
   width: 100%;
   border-spacing: 4;
   text-align: center;
-  // padding: 60px 35px 35px 35px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 `;

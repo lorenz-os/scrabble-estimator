@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import { AccountSwitcher } from '../../components/AccountSwitcher';
 import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
 import { H4 } from '../../components/H4';
@@ -9,9 +11,6 @@ import { ScrabbleList } from '../../components/Liste';
 export default function HomePage() {
   const [scrabbleWord, setScrabbleWord] = useState('');
   const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
-  useEffect(() => {
-    setScrabbleWordScore(calculateScrabbleScore());
-  }, [scrabbleWord]);
   const allScrabbleScoresAndWords = [{}];
   const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
   const [scrabbleDataList, setScrabbleDataList] = useState(
@@ -38,9 +37,11 @@ export default function HomePage() {
       return;
     }
     console.log('Typed -> ', liveInput);
-    // Time out setzen!!!
-    // setScrabbleWordScore(calculateScrabbleScore());
   };
+
+  useEffect(() => {
+    setScrabbleWordScore(calculateScrabbleScore());
+  }, [scrabbleWord]); // aktualsiert nach jedem Render -> jede Veränderung von ScrabbleWord führt zur Neuberechnung des Scores!
 
   const letterToScore = letter => {
     const keys = Object.keys(letterValues);
@@ -88,6 +89,9 @@ export default function HomePage() {
 
   return (
     <div className="d-flex flex-column">
+      <div className="d-flex justify-content-end">
+        <AccountSwitcher />
+      </div>
       <div className="d-flex justify-content-center">
         <H2>Scrabble Estimator</H2>
       </div>
@@ -106,7 +110,22 @@ export default function HomePage() {
           Der Scrabble-Score von {scrabbleWord} beträgt: {scrabbleWordScore}
         </H5>
       </div>
-      <ScrabbleList scrabbleDataList={scrabbleDataList} />
+      <Carousel
+        showThumbs={false}
+        useKeyboardArrows
+        showStatus={false}
+        showArrows={false}
+      >
+        <div>
+          <ScrabbleList scrabbleDataList={scrabbleDataList} />
+        </div>
+        <div>
+          <ScrabbleList scrabbleDataList={scrabbleDataList} />
+        </div>
+        <div>
+          <ScrabbleList scrabbleDataList={scrabbleDataList} />
+        </div>
+      </Carousel>
       <div className="d-flex justify-content-center">
         <H4>Dein Gesamt-Score beträgt: {totalScrabbleScore} </H4>
       </div>
