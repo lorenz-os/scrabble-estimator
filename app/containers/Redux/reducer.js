@@ -12,13 +12,11 @@ export const initialState = {
   },
 };
 
-function nextListId(allScores) {
-  const listId = allScores.reduce(
-    (maxId, oneScore) => Math.max(oneScore.id, maxId),
-    -1,
-  );
-  return listId + 1;
-}
+let listId = 0;
+const getNewListId = () => {
+  listId += 1;
+  return listId;
+};
 
 // think of a reducer as an event listener which handles events based on the received action(event) type
 const reduxReducer = (state = initialState, action) => {
@@ -31,7 +29,7 @@ const reduxReducer = (state = initialState, action) => {
         allScores: [
           ...state.allScores,
           {
-            id: nextListId(state.allScores),
+            id: getNewListId(),
             word: action.payload.scrabbleWord,
             score: action.payload.score,
           },
