@@ -12,7 +12,6 @@ export const Button = styled.button`
   font-family: 'Lato', sans-serif;
   color: #fff;
   text-align: center;
-  background: #24cfaa;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   transition: 0.5s;
 `;

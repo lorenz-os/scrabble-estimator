@@ -7,16 +7,13 @@ import { H4 } from '../../components/H4';
 import { H5 } from '../../components/H5';
 import { H6 } from '../../components/H6';
 import { ScrabbleList } from '../../components/Liste';
+import { useSelectScores } from '../Redux/hooks';
 
 export default function HomePage() {
   const [scrabbleWord, setScrabbleWord] = useState('');
   const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
-  const allScrabbleScoresAndWords = [{}];
   const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
-  const [scrabbleDataList, setScrabbleDataList] = useState(
-    allScrabbleScoresAndWords,
-  );
-  const [idCounter, setIdCounter] = useState(1);
+  const { setScrabbleScoreData, currentPlayer } = useSelectScores();
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
     2: ['d', 'f', 'h', 'l', 'm', 's'],
@@ -75,18 +72,11 @@ export default function HomePage() {
   };
 
   const addScrabbleDataToList = () => {
-    setIdCounter(idCounter + 1);
-    setScrabbleDataList(prevData => [
-      ...prevData,
-      {
-        id: idCounter,
-        wort: scrabbleWord,
-        punktezahl: scrabbleWordScore,
-      },
-    ]);
+    setScrabbleScoreData(scrabbleWord, calculateScrabbleScore());
     setTotalScrabbleScore(scrabbleWordScore + totalScrabbleScore);
   };
 
+  console.log('Redux: ', useSelectScores());
   return (
     <div className="d-flex flex-column">
       <div className="d-flex justify-content-end">
@@ -96,7 +86,7 @@ export default function HomePage() {
         <H2>Scrabble Estimator</H2>
       </div>
       <div className="d-flex justify-content-center">
-        <H6>Erfahre deine Punktzahl!</H6>
+        <H6>Hallo {currentPlayer.playerName} erfahre deine Punktzahl!</H6>
       </div>
       <div className="d-flex justify-content-center">
         <StyledFormular
@@ -117,17 +107,20 @@ export default function HomePage() {
         showArrows={false}
       >
         <div>
-          <ScrabbleList scrabbleDataList={scrabbleDataList} />
+          <ScrabbleList />
         </div>
         <div>
-          <ScrabbleList scrabbleDataList={scrabbleDataList} />
+          <ScrabbleList />
         </div>
         <div>
-          <ScrabbleList scrabbleDataList={scrabbleDataList} />
+          <ScrabbleList />
         </div>
       </Carousel>
       <div className="d-flex justify-content-center">
-        <H4>Dein Gesamt-Score beträgt: {totalScrabbleScore} </H4>
+        <H4>
+          {currentPlayer.playerName} dein Gesamt-Score beträgt:{' '}
+          {totalScrabbleScore}{' '}
+        </H4>
       </div>
     </div>
   );

@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { Button } from '../Button';
 import { Formular } from './styledFormular';
 import { Textfield } from '../Textfield';
+import { useSelectScores } from '../../containers/Redux/hooks';
 
 export const StyledFormular = ({ onChange, onClick, value }) => {
-  console.info(value);
-
+  const { currentPlayer } = useSelectScores();
+  const dynamicButtonStyle = {
+    background: currentPlayer.playerColor,
+  };
   return (
     <Formular>
       <Textfield
@@ -19,7 +22,12 @@ export const StyledFormular = ({ onChange, onClick, value }) => {
       />
       <br />
       <br />
-      <Button type="button" value="Score berechnen" onClick={onClick}>
+      <Button
+        type="button"
+        value="Score berechnen"
+        onClick={onClick}
+        style={dynamicButtonStyle}
+      >
         Score speichern
       </Button>
     </Formular>

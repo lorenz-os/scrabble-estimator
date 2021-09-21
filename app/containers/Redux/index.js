@@ -22,11 +22,11 @@ export function Redux() {
 
   return <div />;
 }
-
+/*
 Redux.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
-
+*/
 const mapStateToProps = createStructuredSelector({
   redux: makeSelectRedux(),
 });

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-export const StyledAccountButton = styled.div`
+export const StyledAccountButton = styled.button`
   font-size: 1.7rem;
   font-family: 'Lato', sans-serif;
+  border-color: white;
   width: 80px;
   height: 80px;
   border-radius: 18px;
@@ -78,17 +79,17 @@ export const StyledParagraph = styled.p`
   font-family: 'Lato', sans-serif;
   font-size: medium;
   align-self: center;
+  margin-left: 25px;
   text-transform: uppercase;
   font-weight: bold;
 `;
-
+/*
 export const StyledArrowButton = styled.button`
   width: 40px;
   height: 60px;
   border-radius: 10px;
   overflow: hidden;
   padding: 0.55rem;
-  margin-left: 25px;
   margin-top: 10px;
   display: flex;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
@@ -113,3 +114,4 @@ export const StyledArrowLeft = styled.i`
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 `;
+*/
