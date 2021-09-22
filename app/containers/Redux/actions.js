@@ -3,7 +3,12 @@
  * Redux actions
  *
  */
-import { ADD_SCRABBLE_DATA, CHANGE_PLAYERS, DEFAULT_ACTION } from './constants';
+import {
+  ADD_SCRABBLE_DATA,
+  CHANGE_PLAYERS,
+  DEFAULT_ACTION,
+  GET_TOTAL_PLAYER_SCORE,
+} from './constants';
 
 /* An action is a plain JavaScript object, describing in the minimal way what changed in the application.
  *  Whether it is initiated by a network request or by user interaction, any data that gets into the Redux application gets there by actions.
@@ -24,7 +29,7 @@ export const changePlayersAction = (
   playerID,
   statusActive,
   playerName,
-  totalOlayerScore,
+  totalPlayerScore,
   playerColor,
 ) => ({
   type: CHANGE_PLAYERS,
@@ -32,7 +37,15 @@ export const changePlayersAction = (
     playerID,
     statusActive,
     playerName,
-    totalOlayerScore,
+    totalPlayerScore,
     playerColor,
+  },
+});
+
+export const getTotalPlayerScore = (playerID, scrabbleScore) => ({
+  type: GET_TOTAL_PLAYER_SCORE,
+  payload: {
+    playerID,
+    scrabbleScore,
   },
 });

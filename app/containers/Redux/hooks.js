@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addScrabbleDataAction, changePlayersAction } from './actions';
+import {
+  addScrabbleDataAction,
+  changePlayersAction,
+  getTotalPlayerScore,
+} from './actions';
 
 export const useSelectScores = () => {
   const dispatch = useDispatch();
@@ -29,10 +33,15 @@ export const useSelectScores = () => {
     );
   };
 
+  const getTotalPlayerScrabbleScore = (playerID, scrabbleScore) => {
+    dispatch(getTotalPlayerScore(playerID, scrabbleScore));
+  };
+
   return {
     currentScoreList,
     currentPlayer,
     setScrabbleScoreData,
     changePlayers,
+    getTotalPlayerScrabbleScore,
   };
 };

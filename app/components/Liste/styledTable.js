@@ -37,7 +37,7 @@ export const StyledThead = styled.thead`
   font-family: 'Lato', sans-serif;
   color: #fff;
   text-align: center;
-  background: #24cfaa;
+  background: #aabbdd;
   box-shadow: 3px 3px 8px #cbced1, -3px -3px 8px #ffffff;
 `;
 export const StyledTbody = styled.tbody`

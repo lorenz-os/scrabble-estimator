@@ -11,6 +11,7 @@ export const Button = styled.button`
   font-weight: 700;
   font-family: 'Lato', sans-serif;
   color: #fff;
+  background: #aabbdd;
   text-align: center;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   transition: 0.5s;

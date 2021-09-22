@@ -12,8 +12,12 @@ import { useSelectScores } from '../Redux/hooks';
 export default function HomePage() {
   const [scrabbleWord, setScrabbleWord] = useState('');
   const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
-  const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
-  const { setScrabbleScoreData, currentPlayer } = useSelectScores();
+  // const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
+  const {
+    setScrabbleScoreData,
+    getTotalPlayerScrabbleScore,
+    currentPlayer,
+  } = useSelectScores();
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
     2: ['d', 'f', 'h', 'l', 'm', 's'],
@@ -73,7 +77,11 @@ export default function HomePage() {
 
   const addScrabbleDataToList = () => {
     setScrabbleScoreData(scrabbleWord, calculateScrabbleScore());
-    setTotalScrabbleScore(scrabbleWordScore + totalScrabbleScore);
+    // setTotalScrabbleScore(scrabbleWordScore + totalScrabbleScore);
+    getTotalPlayerScrabbleScore(
+      currentPlayer.playerID,
+      currentPlayer.totalPlayerScore + scrabbleWordScore,
+    );
   };
 
   console.log('Redux: ', useSelectScores());
@@ -119,7 +127,7 @@ export default function HomePage() {
       <div className="d-flex justify-content-center">
         <H4>
           {currentPlayer.playerName} dein Gesamt-Score beträgt:{' '}
-          {totalScrabbleScore}{' '}
+          {currentPlayer.totalPlayerScore}{' '}
         </H4>
       </div>
     </div>
