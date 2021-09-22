@@ -27,13 +27,45 @@ export const ScrabbleList = () => {
             </tr>
           </StyledThead>
           <StyledTbody>
-            {currentScoreList.map(ScoreListEntity => (
-              <StyledTrow key={uuidv4()}>
-                <th>{ScoreListEntity.id}</th>
-                <td>{ScoreListEntity.word}</td>
-                <td>{ScoreListEntity.score}</td>
-              </StyledTrow>
-            ))}
+            {currentPlayer.playerID === 1 &&
+              currentScoreList
+                .filter(
+                  currentScoreListFiltered =>
+                    currentScoreListFiltered.playerID === 1,
+                )
+                .map(ScoreListEntity => (
+                  <StyledTrow key={uuidv4()}>
+                    <th>{ScoreListEntity.id}</th>
+                    <td>{ScoreListEntity.word}</td>
+                    <td>{ScoreListEntity.score}</td>
+                  </StyledTrow>
+                ))}
+            {currentPlayer.playerID === 2 &&
+              currentScoreList
+                .filter(
+                  currentScoreListFiltered =>
+                    currentScoreListFiltered.playerID === 2,
+                )
+                .map(ScoreListEntity => (
+                  <StyledTrow key={uuidv4()}>
+                    <th>{ScoreListEntity.id}</th>
+                    <td>{ScoreListEntity.word}</td>
+                    <td>{ScoreListEntity.score}</td>
+                  </StyledTrow>
+                ))}
+            {currentPlayer.playerID === 3 &&
+              currentScoreList
+                .filter(
+                  currentScoreListFiltered =>
+                    currentScoreListFiltered.playerID === 3,
+                )
+                .map(ScoreListEntity => (
+                  <StyledTrow key={uuidv4()}>
+                    <th>{ScoreListEntity.id}</th>
+                    <td>{ScoreListEntity.word}</td>
+                    <td>{ScoreListEntity.score}</td>
+                  </StyledTrow>
+                ))}
           </StyledTbody>
         </StyledTable>
       </Scrollable>

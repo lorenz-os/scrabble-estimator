@@ -11,8 +11,8 @@ export const useSelectScores = () => {
 
   const currentPlayer = useSelector(state => state.reduxReducer.players);
 
-  const setScrabbleScoreData = (scrabbleWord, score) => {
-    dispatch(addScrabbleDataAction(scrabbleWord, score));
+  const setScrabbleScoreData = (scrabbleWord, score, playerID) => {
+    dispatch(addScrabbleDataAction(scrabbleWord, score, playerID));
   };
 
   const changePlayers = (

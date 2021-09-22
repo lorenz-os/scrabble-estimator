@@ -37,6 +37,7 @@ const reduxReducer = (state = initialState, action) => {
             id: getNewListId(),
             word: action.payload.scrabbleWord,
             score: action.payload.score,
+            playerID: action.payload.playerID,
           },
         ],
       };
@@ -56,7 +57,6 @@ const reduxReducer = (state = initialState, action) => {
         ...state,
         players: {
           ...state.players,
-          // playerID: action.payload.playerID,
           totalPlayerScore: action.payload.scrabbleScore,
         },
       };

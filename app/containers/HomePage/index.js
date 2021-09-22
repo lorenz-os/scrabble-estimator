@@ -12,7 +12,6 @@ import { useSelectScores } from '../Redux/hooks';
 export default function HomePage() {
   const [scrabbleWord, setScrabbleWord] = useState('');
   const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
-  // const [totalScrabbleScore, setTotalScrabbleScore] = useState(0);
   const {
     setScrabbleScoreData,
     getTotalPlayerScrabbleScore,
@@ -76,8 +75,11 @@ export default function HomePage() {
   };
 
   const addScrabbleDataToList = () => {
-    setScrabbleScoreData(scrabbleWord, calculateScrabbleScore());
-    // setTotalScrabbleScore(scrabbleWordScore + totalScrabbleScore);
+    setScrabbleScoreData(
+      scrabbleWord,
+      calculateScrabbleScore(),
+      currentPlayer.playerID,
+    );
     getTotalPlayerScrabbleScore(
       currentPlayer.playerID,
       currentPlayer.totalPlayerScore + scrabbleWordScore,
@@ -114,12 +116,6 @@ export default function HomePage() {
         showStatus={false}
         showArrows={false}
       >
-        <div>
-          <ScrabbleList />
-        </div>
-        <div>
-          <ScrabbleList />
-        </div>
         <div>
           <ScrabbleList />
         </div>

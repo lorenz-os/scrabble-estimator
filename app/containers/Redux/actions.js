@@ -20,9 +20,9 @@ export const defaultAction = () => ({
 });
 
 // Action creator => creates and returns an action object
-export const addScrabbleDataAction = (scrabbleWord, score) => ({
+export const addScrabbleDataAction = (scrabbleWord, score, playerID) => ({
   type: ADD_SCRABBLE_DATA,
-  payload: { scrabbleWord, score },
+  payload: { scrabbleWord, score, playerID },
 });
 
 export const changePlayersAction = (
