@@ -8,7 +8,7 @@ import {
   StyledAccountButtonInnerIconPlayer3,
   StyledParagraph,
   StyledSpacer,
-} from './sytledAccountSwitcher';
+} from './styledAccountSwitcher';
 
 export const AccountSwitcher = () => {
   const { changePlayers } = useSelectScores();

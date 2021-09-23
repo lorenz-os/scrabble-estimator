@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AccountSwitcher } from '../../components/AccountSwitcher';
+import { Field } from '../../components/Field/styledField';
 import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
 import { H4 } from '../../components/H4';
@@ -89,12 +90,14 @@ export default function HomePage() {
       <div className="d-flex justify-content-center">
         <H6>Hallo {currentPlayer.playerName} erfahre deine Punktzahl!</H6>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-around">
+        <Field />
         <StyledFormular
           value={scrabbleWord}
           onChange={handleTextfieldInput}
           onClick={addScrabbleDataToList}
         />
+        <Field />
       </div>
       <div className="d-flex justify-content-center">
         <H5>
