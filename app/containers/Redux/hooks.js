@@ -1,9 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addScrabbleDataAction,
-  changePlayersAction,
-  getTotalPlayerScore,
-} from './actions';
+import { addScrabbleDataAction, changePlayersAction } from './actions';
 
 export const useSelectScores = () => {
   const dispatch = useDispatch();
@@ -15,26 +11,10 @@ export const useSelectScores = () => {
     dispatch(addScrabbleDataAction(scrabbleWord, score, playerID));
   };
 
-  const changePlayers = (
-    playerID,
-    statusActive,
-    playerName,
-    totalPlayerScore,
-    playerColor,
-  ) => {
+  const changePlayers = (playerID, statusActive, playerName, playerColor) => {
     dispatch(
-      changePlayersAction(
-        playerID,
-        statusActive,
-        playerName,
-        totalPlayerScore,
-        playerColor,
-      ),
+      changePlayersAction(playerID, statusActive, playerName, playerColor),
     );
-  };
-
-  const getTotalPlayerScrabbleScore = (playerID, scrabbleScore) => {
-    dispatch(getTotalPlayerScore(playerID, scrabbleScore));
   };
 
   return {
@@ -42,6 +22,5 @@ export const useSelectScores = () => {
     currentPlayer,
     setScrabbleScoreData,
     changePlayers,
-    getTotalPlayerScrabbleScore,
   };
 };

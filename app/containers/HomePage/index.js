@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Carousel } from 'react-responsive-carousel';
 import { AccountSwitcher } from '../../components/AccountSwitcher';
 import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
@@ -14,8 +13,8 @@ export default function HomePage() {
   const [scrabbleWordScore, setScrabbleWordScore] = useState(0);
   const {
     setScrabbleScoreData,
-    getTotalPlayerScrabbleScore,
     currentPlayer,
+    currentScoreList,
   } = useSelectScores();
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
@@ -34,9 +33,7 @@ export default function HomePage() {
     if (!reg) {
       alert('Bitte gib keine Zahlen oder Sonderzeichen ein!');
       setScrabbleWord('');
-      return;
     }
-    console.log('Typed -> ', liveInput);
   };
 
   useEffect(() => {
@@ -62,12 +59,10 @@ export default function HomePage() {
 
   const calculateScrabbleScore = () => {
     let sum = 0;
-    console.log('Wort bei aufruf von calculateScrabbleScore', scrabbleWord);
     scrabbleWord
       .toLowerCase()
       .split('')
       .forEach(letter => {
-        console.log('Aktueller Buchstabe aus der forEach:', letter);
         sum += letterToScore(letter);
       });
     console.log('Die Punktzahl deines eingegeben Wortes beträgt: ', sum);
@@ -79,10 +74,6 @@ export default function HomePage() {
       scrabbleWord,
       calculateScrabbleScore(),
       currentPlayer.playerID,
-    );
-    getTotalPlayerScrabbleScore(
-      currentPlayer.playerID,
-      currentPlayer.totalPlayerScore + scrabbleWordScore,
     );
   };
 
@@ -110,20 +101,20 @@ export default function HomePage() {
           Der Scrabble-Score von {scrabbleWord} beträgt: {scrabbleWordScore}
         </H5>
       </div>
-      <Carousel
-        showThumbs={false}
-        useKeyboardArrows
-        showStatus={false}
-        showArrows={false}
-      >
-        <div>
-          <ScrabbleList />
-        </div>
-      </Carousel>
+      <ScrabbleList />
       <div className="d-flex justify-content-center">
         <H4>
           {currentPlayer.playerName} dein Gesamt-Score beträgt:{' '}
-          {currentPlayer.totalPlayerScore}{' '}
+          {currentScoreList
+            .filter(
+              currentScoreListFiltered =>
+                currentScoreListFiltered.playerID === currentPlayer.playerID,
+            )
+            .reduce(
+              (acc, currentScoreListEntity) =>
+                acc + currentScoreListEntity.score,
+              0,
+            )}
         </H4>
       </div>
     </div>

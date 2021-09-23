@@ -16,7 +16,7 @@ export const AccountSwitcher = () => {
     <StyledSpacer className="d-flex flex-row">
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
-          onClick={() => changePlayers(1, true, 'Lorenzo', 0, '#24cfaa')}
+          onClick={() => changePlayers(1, true, 'Lorenzo', '#24cfaa')}
         >
           <StyledAccountButtonInnerArea>
             <StyledAccountButtonInnerIconPlayer1>
@@ -28,7 +28,7 @@ export const AccountSwitcher = () => {
       </div>
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
-          onClick={() => changePlayers(2, true, 'Tobi', 0, '#F82B4B')}
+          onClick={() => changePlayers(2, true, 'Tobi', '#F82B4B')}
         >
           <StyledAccountButtonInnerArea>
             <StyledAccountButtonInnerIconPlayer2>
@@ -40,7 +40,7 @@ export const AccountSwitcher = () => {
       </div>
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
-          onClick={() => changePlayers(3, true, 'Chris', 0, '#FFB02C')}
+          onClick={() => changePlayers(3, true, 'Chris', '#FFB02C')}
         >
           <StyledAccountButtonInnerArea>
             <StyledAccountButtonInnerIconPlayer3>

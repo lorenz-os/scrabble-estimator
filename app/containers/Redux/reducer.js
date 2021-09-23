@@ -1,10 +1,5 @@
 // import produce from 'immer';
-import {
-  ADD_SCRABBLE_DATA,
-  DEFAULT_ACTION,
-  CHANGE_PLAYERS,
-  GET_TOTAL_PLAYER_SCORE,
-} from './constants';
+import { ADD_SCRABBLE_DATA, DEFAULT_ACTION, CHANGE_PLAYERS } from './constants';
 // should be implemented as the empty scrabbleWordAndDataArray
 export const initialState = {
   allScores: [],
@@ -48,16 +43,7 @@ const reduxReducer = (state = initialState, action) => {
           statusActive: true,
           playerID: action.payload.playerID,
           playerName: action.payload.playerName,
-          totalPlayerScore: action.payload.totalPlayerScore,
           playerColor: action.payload.playerColor,
-        },
-      };
-    case GET_TOTAL_PLAYER_SCORE:
-      return {
-        ...state,
-        players: {
-          ...state.players,
-          totalPlayerScore: action.payload.scrabbleScore,
         },
       };
     default:
