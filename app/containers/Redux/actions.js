@@ -3,7 +3,14 @@
  * Redux actions
  *
  */
-import { ADD_SCRABBLE_DATA, CHANGE_PLAYERS, DEFAULT_ACTION } from './constants';
+import {
+  ADD_SCRABBLE_DATA,
+  CHANGE_PLAYERS,
+  DEFAULT_ACTION,
+  FETCH_USER_FAILURE,
+  FETCH_USER_SUCCESS,
+  FETCH_USER,
+} from './constants';
 
 /* An action is a plain JavaScript object, describing in the minimal way what changed in the application.
  *  Whether it is initiated by a network request or by user interaction, any data that gets into the Redux application gets there by actions.
@@ -33,4 +40,18 @@ export const changePlayersAction = (
     playerName,
     playerColor,
   },
+});
+
+export const fetchUserSuccessAction = data => ({
+  type: FETCH_USER_SUCCESS,
+  payload: data,
+});
+
+export const fetchUserFailureAction = error => ({
+  type: FETCH_USER_FAILURE,
+  payload: error,
+});
+
+export const fetchUserAction = () => ({
+  type: FETCH_USER,
 });

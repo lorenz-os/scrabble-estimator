@@ -1,5 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addScrabbleDataAction, changePlayersAction } from './actions';
+import {
+  addScrabbleDataAction,
+  changePlayersAction,
+  fetchUserAction,
+} from './actions';
+import { watchFetchUser } from './saga';
+import { useInjectSaga } from 'utils/injectSaga';
 
 export const useSelectScores = () => {
   const dispatch = useDispatch();
@@ -22,5 +28,20 @@ export const useSelectScores = () => {
     currentPlayer,
     setScrabbleScoreData,
     changePlayers,
+  };
+};
+
+export const useSelectUsers = () => {
+  useInjectSaga({ key: 'HalloTest', saga: watchFetchUser });
+  const dispatch = useDispatch();
+  const allUsers = useSelector(state => state.reduxReducer.users);
+
+  const fetchUser = () => {
+    dispatch(fetchUserAction());
+  };
+
+  return {
+    allUsers,
+    fetchUser,
   };
 };

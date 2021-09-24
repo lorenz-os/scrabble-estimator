@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AccountSwitcher } from '../../components/AccountSwitcher';
-import { Field } from '../../components/Field/styledField';
+//import { Field } from '../../components/Field/styledField';
 import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
 import { H4 } from '../../components/H4';
 import { H5 } from '../../components/H5';
 import { H6 } from '../../components/H6';
 import { ScrabbleList } from '../../components/Liste';
-import { useSelectScores } from '../Redux/hooks';
+import { useSelectScores, useSelectUsers } from '../Redux/hooks';
 
 export default function HomePage() {
   const [scrabbleWord, setScrabbleWord] = useState('');
@@ -17,6 +17,7 @@ export default function HomePage() {
     currentPlayer,
     currentScoreList,
   } = useSelectScores();
+  const { fetchUser, allUsers } = useSelectUsers();
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
     2: ['d', 'f', 'h', 'l', 'm', 's'],
@@ -78,7 +79,13 @@ export default function HomePage() {
     );
   };
 
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  console.log('API CALL: ', allUsers);
   console.log('Redux: ', useSelectScores());
+
   return (
     <div className="d-flex flex-column">
       <div className="d-flex justify-content-end">
@@ -91,13 +98,11 @@ export default function HomePage() {
         <H6>Hallo {currentPlayer.playerName} erfahre deine Punktzahl!</H6>
       </div>
       <div className="d-flex justify-content-around">
-        <Field />
         <StyledFormular
           value={scrabbleWord}
           onChange={handleTextfieldInput}
           onClick={addScrabbleDataToList}
         />
-        <Field />
       </div>
       <div className="d-flex justify-content-center">
         <H5>

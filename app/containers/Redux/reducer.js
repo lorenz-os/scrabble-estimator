@@ -1,5 +1,11 @@
 // import produce from 'immer';
-import { ADD_SCRABBLE_DATA, DEFAULT_ACTION, CHANGE_PLAYERS } from './constants';
+import {
+  ADD_SCRABBLE_DATA,
+  DEFAULT_ACTION,
+  CHANGE_PLAYERS,
+  FETCH_USER_FAILURE,
+  FETCH_USER_SUCCESS,
+} from './constants';
 // should be implemented as the empty scrabbleWordAndDataArray
 export const initialState = {
   allScores: [],
@@ -10,6 +16,8 @@ export const initialState = {
     totalPlayerScore: 0,
     playerColor: '#AABBDD',
   },
+  users: {},
+  error: {},
 };
 
 let listId = 0;
@@ -44,6 +52,18 @@ const reduxReducer = (state = initialState, action) => {
           playerID: action.payload.playerID,
           playerName: action.payload.playerName,
           playerColor: action.payload.playerColor,
+        },
+      };
+    case FETCH_USER_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        users: {
+          data: action.payload.data,
         },
       };
     default:
