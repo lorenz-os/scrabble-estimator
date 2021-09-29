@@ -10,6 +10,7 @@ import {
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
   FETCH_USER,
+  RESET_STATE,
 } from './constants';
 
 /* An action is a plain JavaScript object, describing in the minimal way what changed in the application.
@@ -19,6 +20,10 @@ import {
 
 export const defaultAction = () => ({
   type: DEFAULT_ACTION,
+});
+
+export const resetStateAction = () => ({
+  type: RESET_STATE,
 });
 
 // Action creator => creates and returns an action object

@@ -5,6 +5,7 @@ import {
   CHANGE_PLAYERS,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
+  RESET_STATE,
 } from './constants';
 // should be implemented as the empty scrabbleWordAndDataArray
 export const initialState = {
@@ -12,11 +13,13 @@ export const initialState = {
   players: {
     statusActive: false,
     playerID: 0,
-    playerName: '',
+    playerName: 'PlayerZero',
     totalPlayerScore: 0,
-    playerColor: '#AABBDD',
+    playerColor: '#3375D1',
   },
-  users: {},
+  users: {
+    userArray: [],
+  },
   error: {},
 };
 
@@ -63,8 +66,15 @@ const reduxReducer = (state = initialState, action) => {
       return {
         ...state,
         users: {
-          data: action.payload.data,
+          userArray: action.payload.data.map(person => ({
+            userId: person.id,
+            userName: person.name,
+          })),
         },
+      };
+    case RESET_STATE:
+      return {
+        initialState,
       };
     default:
       return state;

@@ -6,11 +6,11 @@ import { FETCH_USER } from './constants';
 // Individual exports for testing
 function* reduxSaga() {
   try {
-    console.log('Hello');
     const response = yield call(callPlayerAPI);
-    console.log(response);
-    const { data } = response;
-    yield put(fetchUserSuccessAction(data));
+    console.log('API RESPONSE: ', response);
+    // const { data } = response;
+    // console.log("API DATA: ", data);
+    yield put(fetchUserSuccessAction(response));
   } catch (error) {
     yield put(fetchUserFailureAction(error));
   }
@@ -18,5 +18,4 @@ function* reduxSaga() {
 
 export function* watchFetchUser() {
   yield takeLatest(FETCH_USER, reduxSaga);
-  console.log('Test');
 }

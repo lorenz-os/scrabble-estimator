@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelectScores } from '../../containers/Redux/hooks';
+import { useSelectScores, useSelectUsers } from '../../containers/Redux/hooks';
 import {
   StyledAccountButton,
   StyledAccountButtonInnerArea,
@@ -12,11 +12,15 @@ import {
 
 export const AccountSwitcher = () => {
   const { changePlayers } = useSelectScores();
+  const { allUsers } = useSelectUsers();
+  console.log('ACCOUNT SWITCHER API DATA: ', allUsers.userArray[0]);
   return (
     <StyledSpacer className="d-flex flex-row">
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
-          onClick={() => changePlayers(1, true, 'Lorenzo', '#24cfaa')}
+          onClick={() =>
+            changePlayers(1, true, allUsers.userArray[0].userName, '#24cfaa')
+          }
         >
           <StyledAccountButtonInnerArea>
             <StyledAccountButtonInnerIconPlayer1>
@@ -28,7 +32,9 @@ export const AccountSwitcher = () => {
       </div>
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
-          onClick={() => changePlayers(2, true, 'Tobi', '#F82B4B')}
+          onClick={() =>
+            changePlayers(2, true, allUsers.userArray[1].userName, '#F82B4B')
+          }
         >
           <StyledAccountButtonInnerArea>
             <StyledAccountButtonInnerIconPlayer2>
@@ -40,7 +46,9 @@ export const AccountSwitcher = () => {
       </div>
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
-          onClick={() => changePlayers(3, true, 'Chris', '#FFB02C')}
+          onClick={() =>
+            changePlayers(3, true, allUsers.userArray[2].userName, '#FFB02C')
+          }
         >
           <StyledAccountButtonInnerArea>
             <StyledAccountButtonInnerIconPlayer3>

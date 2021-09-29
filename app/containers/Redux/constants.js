@@ -10,3 +10,4 @@ export const CHANGE_PLAYERS = 'app/HomePage/CHANGE_PLAYERS';
 export const FETCH_USER_SUCCESS = 'app/HomePage/FETCH_USER_SUCCESS';
 export const FETCH_USER_FAILURE = 'app/HomePage/FETCH_USER_FAILURE';
 export const FETCH_USER = 'app/HomePage/FETCH_USER';
+export const RESET_STATE = 'app/HomePage/RESET_STATE';

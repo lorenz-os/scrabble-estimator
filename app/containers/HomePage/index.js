@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AccountSwitcher } from '../../components/AccountSwitcher';
-//import { Field } from '../../components/Field/styledField';
+// import { Field } from '../../components/Field/styledField';
 import { StyledFormular } from '../../components/Formular';
 import { H2 } from '../../components/H2';
 import { H4 } from '../../components/H4';
 import { H5 } from '../../components/H5';
 import { H6 } from '../../components/H6';
 import { ScrabbleList } from '../../components/Liste';
+import { MoreButton, PlayButton } from '../../components/PlayButton';
 import { useSelectScores, useSelectUsers } from '../Redux/hooks';
 
 export default function HomePage() {
@@ -41,6 +42,10 @@ export default function HomePage() {
   useEffect(() => {
     setScrabbleWordScore(calculateScrabbleScore());
   }, [scrabbleWord]); // aktualsiert nach jedem Render -> jede Veränderung von ScrabbleWord führt zur Neuberechnung des Scores!
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const letterToScore = letter => {
     const keys = Object.keys(letterValues);
@@ -79,11 +84,7 @@ export default function HomePage() {
     );
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  console.log('API CALL: ', allUsers);
+  console.log('API USERS OUTPUT: ', allUsers);
   console.log('Redux: ', useSelectScores());
 
   return (
@@ -98,11 +99,13 @@ export default function HomePage() {
         <H6>Hallo {currentPlayer.playerName} erfahre deine Punktzahl!</H6>
       </div>
       <div className="d-flex justify-content-around">
+        <PlayButton />
         <StyledFormular
           value={scrabbleWord}
           onChange={handleTextfieldInput}
           onClick={addScrabbleDataToList}
         />
+        <MoreButton />
       </div>
       <div className="d-flex justify-content-center">
         <H5>
