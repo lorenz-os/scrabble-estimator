@@ -6,7 +6,7 @@ import { H2 } from '../../components/H2';
 import { H4 } from '../../components/H4';
 import { H5 } from '../../components/H5';
 import { H6 } from '../../components/H6';
-import { ScrabbleList } from '../../components/Liste';
+import { HighScoreList, ScrabbleList } from '../../components/Liste';
 import { MoreButton, PlayButton } from '../../components/PlayButton';
 import { useSelectScores, useSelectUsers } from '../Redux/hooks';
 
@@ -18,7 +18,7 @@ export default function HomePage() {
     currentPlayer,
     currentScoreList,
   } = useSelectScores();
-  const { fetchUser, allUsers } = useSelectUsers();
+  const { fetchUser, allUsers, highscoreTable } = useSelectUsers();
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
     2: ['d', 'f', 'h', 'l', 'm', 's'],
@@ -128,6 +128,9 @@ export default function HomePage() {
             )}
         </H4>
       </div>
+      {highscoreTable.isActive === true &&
+        <HighScoreList />
+      }
     </div>
   );
 }

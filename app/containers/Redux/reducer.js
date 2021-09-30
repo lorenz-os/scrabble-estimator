@@ -6,6 +6,8 @@ import {
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
   RESET_STATE,
+  SHOW_HIGHSCORE_TABLE,
+  DONT_SHOW_HIGHSCORE_TABLE,
 } from './constants';
 // should be implemented as the empty scrabbleWordAndDataArray
 export const initialState = {
@@ -21,6 +23,9 @@ export const initialState = {
     userArray: [],
   },
   error: {},
+  highscoreTable: {
+    isActive: false,
+  }
 };
 
 let listId = 0;
@@ -76,6 +81,20 @@ const reduxReducer = (state = initialState, action) => {
       return {
         initialState,
       };
+    case SHOW_HIGHSCORE_TABLE:
+      return {
+        ...state,
+        highscoreTable: {
+          isActive: true,
+        }
+      }
+    case DONT_SHOW_HIGHSCORE_TABLE:
+      return {
+        ...state,
+        highscoreTable: {
+          isActive: false,
+        }
+      }
     default:
       return state;
   }

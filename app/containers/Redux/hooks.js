@@ -5,6 +5,8 @@ import {
   changePlayersAction,
   fetchUserAction,
   resetStateAction,
+  setHighscoreTableAction,
+  desetHighscoreTableAction,
 } from './actions';
 import { watchFetchUser } from './saga';
 
@@ -42,13 +44,24 @@ export const useSelectUsers = () => {
 
   const dispatch = useDispatch();
   const allUsers = useSelector(state => state.reduxReducer.users);
-
+  const highscoreTable = useSelector(state => state.reduxReducer.highscoreTable);
   const fetchUser = () => {
     dispatch(fetchUserAction());
   };
 
+  const setHighscoreTable = () => {
+    dispatch(setHighscoreTableAction());
+  };
+
+  const desetHighscoreTable = () => {
+    dispatch(desetHighscoreTableAction());
+  };
+
   return {
     allUsers,
+    highscoreTable,
     fetchUser,
+    setHighscoreTable,
+    desetHighscoreTable,
   };
 };

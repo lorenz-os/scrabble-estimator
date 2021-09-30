@@ -45,3 +45,42 @@ export const ScrabbleList = () => {
     </Container>
   );
 };
+
+export const HighScoreList = () => {
+  const { currentScoreList, currentPlayer } = useSelectScores();
+  return (
+    <Container>
+      <Scrollable>
+        <StyledTable>
+          <StyledThead>
+            <tr>
+              <th>Player Name</th>
+              <th>Highscore</th>
+            </tr>
+          </StyledThead>
+          <StyledTbody>
+            {currentScoreList
+              .filter(
+                currentScoreListFiltered =>
+                  currentScoreListFiltered.playerID === currentPlayer.playerID,
+              )
+              .map(() => (
+                <StyledTrow key={uuidv4()}>
+                  <td>{currentPlayer.playerName}</td>
+                  <td>{currentScoreList
+                    .filter(
+                      currentScoreListFiltered =>
+                        currentScoreListFiltered.playerID === currentPlayer.playerID,
+                    )
+                    .reduce(
+                      (acc, currentScoreListEntity) =>
+                        acc + currentScoreListEntity.score,
+                      0,
+                    )}</td>
+                </StyledTrow>
+              ))}
+          </StyledTbody>
+        </StyledTable>
+      </Scrollable>
+    </Container>);
+};
