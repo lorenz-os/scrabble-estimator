@@ -1,8 +1,9 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useSelectScores } from '../../containers/Redux/hooks';
+import { useSelectScores, useSelectUsers } from '../../containers/Redux/hooks';
 import {
   Container,
+  ContainerForHighscoreTable,
   Scrollable,
   StyledTable,
   StyledTbody,
@@ -47,9 +48,9 @@ export const ScrabbleList = () => {
 };
 
 export const HighScoreList = () => {
-  const { currentScoreList, currentPlayer } = useSelectScores();
+  const { allUsers } = useSelectUsers();
   return (
-    <Container>
+    <ContainerForHighscoreTable>
       <Scrollable>
         <StyledTable>
           <StyledThead>
@@ -59,28 +60,19 @@ export const HighScoreList = () => {
             </tr>
           </StyledThead>
           <StyledTbody>
-            {currentScoreList
-              .filter(
-                currentScoreListFiltered =>
-                  currentScoreListFiltered.playerID === currentPlayer.playerID,
-              )
-              .map(() => (
+            {allUsers.userArray.map(user => {
+              const { userName } = user; // destructuring
+              console.log(userName);
+              return (
                 <StyledTrow key={uuidv4()}>
-                  <td>{currentPlayer.playerName}</td>
-                  <td>{currentScoreList
-                    .filter(
-                      currentScoreListFiltered =>
-                        currentScoreListFiltered.playerID === currentPlayer.playerID,
-                    )
-                    .reduce(
-                      (acc, currentScoreListEntity) =>
-                        acc + currentScoreListEntity.score,
-                      0,
-                    )}</td>
+                  <td>{userName}</td>
+                  <td>{}</td>
                 </StyledTrow>
-              ))}
+              );
+            })}
           </StyledTbody>
         </StyledTable>
       </Scrollable>
-    </Container>);
+    </ContainerForHighscoreTable>
+  );
 };

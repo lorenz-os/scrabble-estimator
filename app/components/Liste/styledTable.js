@@ -8,6 +8,14 @@ export const Container = styled.div`
   padding-bottom: 35px;
 `;
 
+export const ContainerForHighscoreTable = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 20vh;
+  background: #fafafa;
+  padding-bottom: 35px;
+`;
+
 export const Scrollable = styled.div`
   overflow-y: auto;
   width: 100%;
@@ -37,7 +45,7 @@ export const StyledThead = styled.thead`
   font-family: 'Lato', sans-serif;
   color: #fff;
   text-align: center;
-  background: #3375D1;
+  background: #3375d1;
   box-shadow: 3px 3px 8px #cbced1, -3px -3px 8px #ffffff;
 `;
 export const StyledTbody = styled.tbody`

@@ -86,11 +86,11 @@ export default function HomePage() {
 
   console.log('API USERS OUTPUT: ', allUsers);
   console.log('Redux: ', useSelectScores());
-
+  console.log('Test TABLE Index:', highscoreTable);
   return (
     <div className="d-flex flex-column">
       <div className="d-flex justify-content-end">
-        <AccountSwitcher />
+        {allUsers.userArray.length > 0 && <AccountSwitcher />}
       </div>
       <div className="d-flex justify-content-center">
         <H2>Scrabble Estimator</H2>
@@ -128,9 +128,7 @@ export default function HomePage() {
             )}
         </H4>
       </div>
-      {highscoreTable.isActive === true &&
-        <HighScoreList />
-      }
+      {highscoreTable.isActive === true && <HighScoreList />}
     </div>
   );
 }

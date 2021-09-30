@@ -12,7 +12,6 @@ import {
   FETCH_USER,
   RESET_STATE,
   SHOW_HIGHSCORE_TABLE,
-  DONT_SHOW_HIGHSCORE_TABLE,
 } from './constants';
 
 /* An action is a plain JavaScript object, describing in the minimal way what changed in the application.
@@ -26,10 +25,6 @@ export const defaultAction = () => ({
 
 export const setHighscoreTableAction = () => ({
   type: SHOW_HIGHSCORE_TABLE,
-});
-
-export const desetHighscoreTableAction = () => ({
-  type: DONT_SHOW_HIGHSCORE_TABLE,
 });
 
 export const resetStateAction = () => ({
