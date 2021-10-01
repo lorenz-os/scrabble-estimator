@@ -1,4 +1,6 @@
 // import produce from 'immer';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 import {
   ADD_SCRABBLE_DATA,
   DEFAULT_ACTION,
@@ -8,6 +10,7 @@ import {
   RESET_STATE,
   SHOW_HIGHSCORE_TABLE,
 } from './constants';
+
 // should be implemented as the empty scrabbleWordAndDataArray
 export const initialState = {
   allScores: [],
@@ -20,7 +23,6 @@ export const initialState = {
   },
   users: {
     userArray: [],
-    highscoreList: [0, 0, 0, 0, 0],
   },
   error: {},
   highscoreTable: {
@@ -80,7 +82,17 @@ const reduxReducer = (state = initialState, action) => {
     case RESET_STATE:
       return {
         ...state,
-        ...initialState,
+        allScores: [],
+        players: {
+          statusActive: false,
+          playerID: 0,
+          playerName: 'PlayerZero',
+          totalPlayerScore: 0,
+          playerColor: '#3375D1',
+        },
+        highscoreTable: {
+          isActive: false,
+        },
       };
     case SHOW_HIGHSCORE_TABLE:
       return {
@@ -95,4 +107,10 @@ const reduxReducer = (state = initialState, action) => {
   return state;
 };
 
-export default reduxReducer;
+const persistConfig = {
+  key: 'reduxReducer',
+  storage,
+  blacklist: ['error', 'users'],
+};
+
+export default persistReducer(persistConfig, reduxReducer);

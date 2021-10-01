@@ -9,7 +9,8 @@ export const StyledAccountButton = styled.button`
   border-radius: 18px;
   overflow: hidden;
   padding: 0.55rem;
-  margin-left: 25px;
+  margin-left: 50px;
+  margin-right: 50px;
   margin-top: 10px;
   display: flex;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
@@ -79,7 +80,8 @@ export const StyledParagraph = styled.p`
   font-family: 'Lato', sans-serif;
   font-size: medium;
   align-self: center;
-  margin-left: 25px;
+  margin-left: 12px;
+  margin-right: 12px;
   text-transform: uppercase;
   font-weight: bold;
 `;

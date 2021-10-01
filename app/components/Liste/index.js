@@ -48,7 +48,19 @@ export const ScrabbleList = () => {
 };
 
 export const HighScoreList = () => {
+  const { currentScoreList, currentPlayer } = useSelectScores();
   const { allUsers } = useSelectUsers();
+  /* let highscoreForPlayer = currentScoreList
+    .filter(
+      currentScoreListFiltered =>
+        currentScoreListFiltered.playerID === currentPlayer.playerID,
+    ).filter(currentScoreListNameEntity => currentScoreListNameEntity.playerName === userName)
+    .reduce(
+      (acc, currentScoreListEntity) =>
+        acc + currentScoreListEntity.score,
+      0,
+    );
+    */
   return (
     <ContainerForHighscoreTable>
       <Scrollable>
@@ -66,7 +78,19 @@ export const HighScoreList = () => {
               return (
                 <StyledTrow key={uuidv4()}>
                   <td>{userName}</td>
-                  <td>{}</td>
+                  <td>
+                    {currentScoreList
+                      .filter(
+                        currentScoreListFiltered =>
+                          currentScoreListFiltered.playerID ===
+                          currentPlayer.playerID,
+                      )
+                      .reduce(
+                        (acc, currentScoreListEntity) =>
+                          acc + currentScoreListEntity.score,
+                        0,
+                      )}
+                  </td>
                 </StyledTrow>
               );
             })}

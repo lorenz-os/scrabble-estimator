@@ -18,7 +18,7 @@ export const AccountSwitcher = () => {
   // console.log("Name des Spielers: ", nameOfPlayerOne);
   console.log('FIRST USER: ', allUsers.userArray[0]);
   return (
-    <StyledSpacer className="d-flex flex-row">
+    <StyledSpacer className="d-flex flex-row ">
       <div className="d-flex flex-column justify-content-center align-self-center">
         <StyledAccountButton
           onClick={() =>
