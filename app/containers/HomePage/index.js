@@ -18,7 +18,7 @@ export default function HomePage() {
     currentPlayer,
     currentScoreList,
   } = useSelectScores();
-  const { fetchUser, allUsers, highscoreTable } = useSelectUsers();
+  const { fetchUser, allUsers, highscoreTable, round, countRound, countRoundIndex } = useSelectUsers();
   const letterValues = {
     1: ['a', 'e', 'i', 'o', 'u'],
     2: ['d', 'f', 'h', 'l', 'm', 's'],
@@ -82,11 +82,16 @@ export default function HomePage() {
       calculateScrabbleScore(),
       currentPlayer.playerID,
     );
+    countRoundIndex();
+    if (round.roundIndex % 3 === 0) {
+      countRound();
+    }
   };
 
   console.log('API USERS OUTPUT: ', allUsers);
   console.log('Redux: ', useSelectScores());
   console.log('Test TABLE Index:', highscoreTable);
+
   return (
     <div className="d-flex flex-column">
       <div className="d-flex justify-content-end">

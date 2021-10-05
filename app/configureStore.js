@@ -1,8 +1,9 @@
 /**
  * Create the store with dynamic reducers
  */
-
+import { persistStore, persistReducer } from 'redux-persist';
 import { createStore, applyMiddleware, compose } from 'redux';
+import storage from 'redux-persist/lib/storage';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
@@ -10,6 +11,11 @@ import createReducer from './reducers';
 export default function configureStore(initialState = {}, history) {
   let composeEnhancers = compose;
   const reduxSagaMonitorOptions = {};
+  const persistConfig = {
+    key: 'root',
+    storage,
+    blacklist: ['error', 'users'],
+  };
 
   // If Redux Dev Tools and Saga Dev Tools Extensions are installed, enable them
   /* istanbul ignore next */
@@ -37,7 +43,7 @@ export default function configureStore(initialState = {}, history) {
   const enhancers = [applyMiddleware(...middlewares)];
 
   const store = createStore(
-    createReducer(),
+    persistReducer(persistConfig, createReducer()),
     initialState,
     composeEnhancers(...enhancers),
   );
@@ -47,6 +53,8 @@ export default function configureStore(initialState = {}, history) {
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
 
+  const persistor = persistStore(store);
+
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if (module.hot) {
@@ -55,5 +63,5 @@ export default function configureStore(initialState = {}, history) {
     });
   }
 
-  return store;
+  return { persistor }, store;
 }

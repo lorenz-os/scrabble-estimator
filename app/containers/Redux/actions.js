@@ -12,6 +12,8 @@ import {
   FETCH_USER,
   RESET_STATE,
   SHOW_HIGHSCORE_TABLE,
+  COUNT_ROUND_INDEX,
+  COUNT_ROUND,
 } from './constants';
 
 /* An action is a plain JavaScript object, describing in the minimal way what changed in the application.
@@ -21,6 +23,14 @@ import {
 
 export const defaultAction = () => ({
   type: DEFAULT_ACTION,
+});
+
+export const countRoundIndexAction = () => ({
+  type: COUNT_ROUND_INDEX,
+});
+
+export const countRoundAction = () => ({
+  type: COUNT_ROUND,
 });
 
 export const setHighscoreTableAction = () => ({

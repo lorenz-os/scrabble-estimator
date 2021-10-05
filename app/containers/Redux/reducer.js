@@ -9,6 +9,8 @@ import {
   FETCH_USER_SUCCESS,
   RESET_STATE,
   SHOW_HIGHSCORE_TABLE,
+  COUNT_ROUND_INDEX,
+  COUNT_ROUND,
 } from './constants';
 
 // should be implemented as the empty scrabbleWordAndDataArray
@@ -28,12 +30,28 @@ export const initialState = {
   highscoreTable: {
     isActive: false,
   },
+  round: {
+    roundIndex: 1,
+    roundCounter: 1,
+  },
 };
 
 let listId = 0;
 const getNewListId = () => {
   listId += 1;
   return listId;
+};
+
+let roundID = 1;
+const getNewRoundID = () => {
+  roundID += 1;
+  return roundID;
+};
+
+let roundNumber = 1;
+const getNewRoundNumber = () => {
+  roundNumber += 1;
+  return roundNumber;
 };
 
 // think of a reducer as an event listener which handles events based on the received action(event) type
@@ -93,12 +111,30 @@ const reduxReducer = (state = initialState, action) => {
         highscoreTable: {
           isActive: false,
         },
+        round: {
+          roundIndex: 1,
+          roundCounter: 1,
+        },
       };
     case SHOW_HIGHSCORE_TABLE:
       return {
         ...state,
         highscoreTable: {
           isActive: !state.highscoreTable.isActive,
+        },
+      };
+    case COUNT_ROUND_INDEX:
+      return {
+        ...state,
+        round: {
+          roundIndex: getNewRoundID(),
+        },
+      };
+    case COUNT_ROUND:
+      return {
+        ...state,
+        round: {
+          roundCounter: getNewRoundNumber(),
         },
       };
     default:

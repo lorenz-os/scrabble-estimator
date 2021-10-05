@@ -3,6 +3,8 @@ import { useInjectSaga } from 'utils/injectSaga';
 import {
   addScrabbleDataAction,
   changePlayersAction,
+  countRoundAction,
+  countRoundIndexAction,
   fetchUserAction,
   resetStateAction,
   setHighscoreTableAction,
@@ -43,10 +45,19 @@ export const useSelectUsers = () => {
 
   const dispatch = useDispatch();
   const allUsers = useSelector(state => state.reduxReducer.users);
+  const round = useSelector(state => state.reduxReducer.round);
 
   const highscoreTable = useSelector(
     state => state.reduxReducer.highscoreTable,
   );
+
+  const countRound = () => {
+    dispatch(countRoundAction());
+  };
+
+  const countRoundIndex = () => {
+    dispatch(countRoundIndexAction());
+  };
 
   const fetchUser = () => {
     dispatch(fetchUserAction());
@@ -59,7 +70,10 @@ export const useSelectUsers = () => {
   return {
     allUsers,
     highscoreTable,
+    round,
     fetchUser,
     setHighscoreTable,
+    countRound,
+    countRoundIndex,
   };
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelectScores, useSelectUsers } from '../../containers/Redux/hooks';
 import {
@@ -47,53 +47,32 @@ export const ScrabbleList = () => {
   );
 };
 
+
 export const HighScoreList = () => {
-  const { currentScoreList, currentPlayer } = useSelectScores();
-  const { allUsers } = useSelectUsers();
-  /* let highscoreForPlayer = currentScoreList
-    .filter(
-      currentScoreListFiltered =>
-        currentScoreListFiltered.playerID === currentPlayer.playerID,
-    ).filter(currentScoreListNameEntity => currentScoreListNameEntity.playerName === userName)
-    .reduce(
-      (acc, currentScoreListEntity) =>
-        acc + currentScoreListEntity.score,
-      0,
-    );
-    */
+  const { currentScoreList } = useSelectScores();
+  const { round } = useSelectUsers();
   return (
     <ContainerForHighscoreTable>
       <Scrollable>
         <StyledTable>
           <StyledThead>
             <tr>
-              <th>Player Name</th>
-              <th>Highscore</th>
+              <th>Spielrunde</th>
+              <th>Gesamtpunktestand</th>
             </tr>
           </StyledThead>
           <StyledTbody>
-            {allUsers.userArray.map(user => {
-              const { userName } = user; // destructuring
-              console.log(userName);
-              return (
-                <StyledTrow key={uuidv4()}>
-                  <td>{userName}</td>
-                  <td>
-                    {currentScoreList
-                      .filter(
-                        currentScoreListFiltered =>
-                          currentScoreListFiltered.playerID ===
-                          currentPlayer.playerID,
-                      )
-                      .reduce(
-                        (acc, currentScoreListEntity) =>
-                          acc + currentScoreListEntity.score,
-                        0,
-                      )}
-                  </td>
-                </StyledTrow>
-              );
-            })}
+            <StyledTrow key={uuidv4()}>
+              <td>{round.roundCounter}</td>
+              <td>
+                {currentScoreList
+                  .reduce(
+                    (acc, currentScoreListEntity) =>
+                      acc + currentScoreListEntity.score,
+                    0,
+                  )}
+              </td>
+            </StyledTrow>
           </StyledTbody>
         </StyledTable>
       </Scrollable>
