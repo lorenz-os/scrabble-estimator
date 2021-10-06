@@ -82,15 +82,20 @@ export default function HomePage() {
       calculateScrabbleScore(),
       currentPlayer.playerID,
     );
+    console.log(round.roundCounter);
     countRoundIndex();
+    console.log(round.roundCounter);
     if (round.roundIndex % 3 === 0) {
       countRound();
+      console.log(round.roundCounter);
     }
   };
 
   console.log('API USERS OUTPUT: ', allUsers);
   console.log('Redux: ', useSelectScores());
   console.log('Test TABLE Index:', highscoreTable);
+
+  console.log(round.roundCounter);
 
   return (
     <div className="d-flex flex-column">

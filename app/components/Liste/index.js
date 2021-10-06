@@ -51,6 +51,7 @@ export const ScrabbleList = () => {
 export const HighScoreList = () => {
   const { currentScoreList } = useSelectScores();
   const { round } = useSelectUsers();
+  console.log(round.roundCounter);
   return (
     <ContainerForHighscoreTable>
       <Scrollable>
